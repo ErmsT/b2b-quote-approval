@@ -150,7 +150,9 @@ Automated tests (`npm test`, 122 tests, all passing at the time of writing):
   - the health check passes. It failed once during the two seconds before the server started listening;
   - the live API returns the three seeded cases with the expected margins and statuses;
   - a decision recorded through the live API was still there after `fly machine restart`. The demo data was then restored through `POST /api/demo/reset`;
-  - in the browser at 1400px, the live site renders like the local build, with no console errors or warnings.
+  - in the browser at 1400px, the live site renders like the local build, with no console errors or warnings;
+  - a redeploy (`fly deploy --ha=false`) updated the same machine in place, with the same volume, and the existing data was still there afterwards;
+  - waking from idle after auto-stop: the first request took 5.1 seconds, and the app then responded normally.
 - **Manual smoke test by the agent:**
   - the built server seeded the cases and an approval survived a server restart;
   - `npm run db:reset` restored the seeded data;
@@ -198,10 +200,7 @@ Automated tests (`npm test`, 122 tests, all passing at the time of writing):
 - **Screen-reader output:** no screen reader was used. Live-region announcements are covered only by `role="status"` assertions in the UI tests.
 - Firefox and Safari: only Chromium-based browsers (Edge, Playwright's Chromium) were used. The layout relies on CSS container queries, which current versions of all three support, but this was not checked.
 - Viewports other than 1280, 1400, 1440, 820 and 390px wide, and browser zoom levels above 100%.
-- **The deployed environment, beyond the checks above:**
-  - the cold start after auto-stop: the machine was restarted on purpose but not observed waking up from idle;
-  - several reviewers editing at the same time;
-  - redeploying with existing data.
+- **The deployed environment, beyond the checks above:** several reviewers editing at the same time.
 - The Docker image has only been built on Fly's remote builder, never locally.
 - `npm run dev` (watch mode with the Vite proxy) was not exercised by automated tests.
 - Very large values: quantity × price above about $90 billion per line would exceed exact integer arithmetic in JavaScript. No upper bound is enforced.
