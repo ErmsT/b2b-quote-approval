@@ -3,7 +3,7 @@
 A small working prototype: an account manager builds a fixed-price quote. The app shows net revenue, margin and whether the deal can proceed or needs a manager decision. A simulated manager approves or rejects exceptions. An approval never carries over to terms the manager did not see.
 
 - **Deployed app:** TODO (URL)
-- **Public repository:** TODO (URL)
+- **Public repository:** https://github.com/ErmsT/b2b-quote-approval
 
 > The deployed demo uses **one shared database for every reviewer**. Others may edit the same quotes while you look at them. Use **Restore demo data** (bottom of the quote list) to return to the three seeded cases.
 
@@ -215,7 +215,8 @@ The author reviewed each phase and approved the documented assumptions before th
 ### My changes
 
 - **Agent specification & guardrails (`AGENTS.md`):** Authored the repository specification before generating code—locking the stack, pure domain boundary (`src/domain/`), integer-cents arithmetic, approval thresholds (`margin >= 30%` and `discount <= 15%`), deterministic terms fingerprinting, optimistic concurrency, and explicit out-of-scope constraints.
-- **Architectural & domain sign-off:** Reviewed and confirmed key edge-case choices during phased delivery (half-up cent rounding for net revenue so displayed totals match threshold checks, re-applying an existing decision if terms are reverted to an exact previously decided fingerprint, rejecting decisions with `409` when terms already satisfy the rule, and disabling manager actions while edits are unsaved).
+- **Architectural & domain sign-off:** Reviewed and confirmed key edge-case choices during phased delivery (half-up cent rounding for net revenue so displayed totals match threshold checks, re-applying an existing decision if terms are reverted to an exact previously decided fingerprint, rejecting decisions with `409` when terms already satisfy the rule, and disabling 
+manager actions while edits are unsaved).
 - **UI & bug-fix direction:** Caught a stale confirmation banner bug in `DecisionPanel` during manual browser testing (where `"Approval recorded for the current terms."` remained visible after saving revised commercial terms) and directed the regression test, fix, and responsive/contrast polish.
 - **Code review:** Reviewed the domain math, Zod schemas, SQLite migrations/triggers, API handlers, and React components to ensure server-side recomputation and clean separation of concerns.
 
