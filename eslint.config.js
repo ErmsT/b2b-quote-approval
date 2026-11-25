@@ -7,7 +7,12 @@ export default tseslint.config(
   { ignores: ["dist", "data", "node_modules"] },
   js.configs.recommended,
   ...tseslint.configs.strict,
-  { languageOptions: { globals: { ...globals.node } } },
+  {
+    languageOptions: { globals: { ...globals.node } },
+    rules: {
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", ignoreRestSiblings: true }],
+    },
+  },
   {
     files: ["src/client/**/*.{ts,tsx}"],
     plugins: { "react-hooks": reactHooks },

@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "concurrently -n server,client \"tsx watch src/server/index.ts\" \"vite\"",
-    "build": "vite build && tsc -p tsconfig.server.json",
+    "build": "vite build && tsc -p tsconfig.server.json && node -e \"require('fs').cpSync('src/server/migrations','dist/server/server/migrations',{recursive:true})\"",
     "start": "node dist/server/server/index.js",
     "test": "vitest run",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.server.json",
-    "db:reset": "tsx src/server/seed.ts --reset"
+    "db:reset": "tsx src/server/seed.ts"
   },
   "description": "Quote margin and approval prototype",
   "dependencies": {
