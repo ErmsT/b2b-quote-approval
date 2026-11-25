@@ -15,21 +15,21 @@ export interface Decision {
   snapshot: DecisionSnapshot;
 }
 
-export interface DerivedStatus {
+export interface DerivedStatus<D extends Decision = Decision> {
   status: QuoteStatus;
   /** The decision covering the current terms (approved/rejected), or the one that went stale. */
-  decision?: Decision;
+  decision?: D;
 }
 
 /**
  * Derives status from the current terms and the append-only decision history
  * (oldest first). Never stored; recomputed on every read.
  */
-export function deriveStatus(
+export function deriveStatus<D extends Decision>(
   currentFingerprint: string,
   requiresReview: boolean,
-  decisions: readonly Decision[],
-): DerivedStatus {
+  decisions: readonly D[],
+): DerivedStatus<D> {
   if (!requiresReview) return { status: "not_required" };
   const matching = decisions.filter((d) => d.termsFingerprint === currentFingerprint).at(-1);
   if (matching) return { status: matching.decision, decision: matching };

@@ -1,0 +1,105 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - heading "Quote Margin & Approval" [level=1] [ref=e4]
+    - paragraph [ref=e5]: Prototype. One shared demo database for every reviewer.
+  - generic [ref=e6]:
+    - generic [ref=e7]:
+      - navigation "Quotes" [ref=e8]:
+        - heading "Quotes" [level=2] [ref=e9]
+        - generic [ref=e10]:
+          - generic [ref=e11]: Search quotes by name
+          - searchbox "Search quotes by name" [ref=e12]
+        - button "New quote" [ref=e13] [cursor=pointer]
+        - list [ref=e20]:
+          - listitem [ref=e21]:
+            - button "Standard Net $10,000.00 · Margin 40.0% Can proceed" [ref=e22] [cursor=pointer]:
+              - generic [ref=e23]: Standard
+              - generic [ref=e24]: Net $10,000.00 · Margin 40.0%
+              - generic [ref=e25]: Can proceed
+          - listitem [ref=e26]:
+            - 'button "Large Net $22,500.00 · Margin 20.0% Needs review: awaiting manager decision" [active] [ref=e27] [cursor=pointer]':
+              - generic [ref=e28]: Large
+              - generic [ref=e29]: Net $22,500.00 · Margin 20.0%
+              - generic [ref=e30]: "Needs review: awaiting manager decision"
+          - listitem [ref=e31]:
+            - 'button "Revision Net $9,600.00 · Margin 25.0% Needs review: awaiting manager decision" [ref=e32] [cursor=pointer]':
+              - generic [ref=e33]: Revision
+              - generic [ref=e34]: Net $9,600.00 · Margin 25.0%
+              - generic [ref=e35]: "Needs review: awaiting manager decision"
+      - region "Demo only" [ref=e15]:
+        - heading "Demo only" [level=2] [ref=e16]
+        - button "Restore demo data" [ref=e17] [cursor=pointer]
+    - main [ref=e18]:
+      - generic [ref=e36]:
+        - 'form "Edit quote: Large" [ref=e37]':
+          - 'heading "Edit quote: Large" [level=2] [ref=e38]'
+          - generic [ref=e39]:
+            - generic [ref=e40]: Quote name
+            - textbox "Quote name" [ref=e41]: Large
+          - generic [ref=e42]:
+            - generic [ref=e43]: Notes (not part of the commercial terms)
+            - textbox "Notes (not part of the commercial terms)" [ref=e44]
+          - heading "Line items" [level=3] [ref=e45]
+          - group "Item 1" [ref=e46]:
+            - generic [ref=e48]:
+              - generic [ref=e49]: Description
+              - textbox "Description" [ref=e50]: Implementation
+            - generic [ref=e51]:
+              - generic [ref=e52]: Quantity
+              - textbox "Quantity" [ref=e53]: "1"
+            - generic [ref=e54]:
+              - generic [ref=e55]: Unit price (USD)
+              - textbox "Unit price (USD)" [ref=e56]: "20000.00"
+            - generic [ref=e57]:
+              - generic [ref=e58]: Unit cost (USD)
+              - textbox "Unit cost (USD)" [ref=e59]: "15000.00"
+            - button "Remove item 1" [ref=e60] [cursor=pointer]
+          - group "Item 2" [ref=e61]:
+            - generic [ref=e63]:
+              - generic [ref=e64]: Description
+              - textbox "Description" [ref=e65]: Training
+            - generic [ref=e66]:
+              - generic [ref=e67]: Quantity
+              - textbox "Quantity" [ref=e68]: "1"
+            - generic [ref=e69]:
+              - generic [ref=e70]: Unit price (USD)
+              - textbox "Unit price (USD)" [ref=e71]: "5000.00"
+            - generic [ref=e72]:
+              - generic [ref=e73]: Unit cost (USD)
+              - textbox "Unit cost (USD)" [ref=e74]: "3000.00"
+            - button "Remove item 2" [ref=e75] [cursor=pointer]
+          - button "Add line item" [ref=e76] [cursor=pointer]
+          - generic [ref=e77]:
+            - generic [ref=e78]: Discount on total price (%)
+            - textbox "Discount on total price (%)" [ref=e79]: "10"
+          - button "Save changes" [ref=e81] [cursor=pointer]
+          - status
+        - generic [ref=e82]:
+          - region "Totals" [ref=e83]:
+            - heading "Totals" [level=2] [ref=e84]
+            - generic [ref=e85]:
+              - term [ref=e86]: Gross revenue
+              - definition [ref=e87]: $25,000.00
+              - term [ref=e88]: Discount
+              - definition [ref=e89]: 10%
+              - term [ref=e90]: Net revenue
+              - definition [ref=e91]: $22,500.00
+              - term [ref=e92]: Total cost
+              - definition [ref=e93]: $18,000.00
+              - term [ref=e94]: Margin
+              - definition [ref=e95]: 20.0%
+            - paragraph [ref=e96]:
+              - strong [ref=e97]: "Status:"
+              - text: "Needs review: awaiting manager decision"
+            - paragraph [ref=e98]: Margin 20.0% is below the 30% minimum; discount 10% is within the 15% maximum
+          - 'region "Simulation: manager decision (no login, no email)" [ref=e99]':
+            - 'heading "Simulation: manager decision (no login, no email)" [level=2] [ref=e100]'
+            - generic [ref=e101]:
+              - generic [ref=e102]:
+                - generic [ref=e103]: Reason for the decision (required)
+                - textbox "Reason for the decision (required)" [ref=e104]
+              - generic [ref=e105]:
+                - button "Approve these terms" [ref=e106] [cursor=pointer]
+                - button "Reject these terms" [ref=e107] [cursor=pointer]
+            - status
+  - status

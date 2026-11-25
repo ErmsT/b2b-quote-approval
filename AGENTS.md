@@ -212,6 +212,7 @@ README deliverables (checklist)
 <!-- One concrete rule per line, appended after user corrections. -->
 No browser storage. Persistence is server-side only.
 All project text is in English.
+Feedback messages tied to specific terms (e.g. a decision confirmation) must disappear when those terms change; key them to the termsFingerprint.
 12. How this file was built
 
 Structure based on FerroxLabs/agents-md (Karpathy's principles, Boris Cherny's Claude Code workflow, Anthropic best practices, the AGENTS.md standard), adapted to the "Quote Margin & Approval" challenge brief.

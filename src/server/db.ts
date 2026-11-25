@@ -10,7 +10,7 @@ export type Db = Database.Database;
 
 export const DEFAULT_DATABASE_PATH = "./data/app.db";
 
-const migrationsDir = fileURLToPath(new URL("./migrations/", import.meta.url));
+const migrationsDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "migrations");
 
 /** Opens (creating if needed) the database and applies pending migrations. */
 export function openDatabase(filename: string): Db {

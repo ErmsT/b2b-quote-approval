@@ -97,12 +97,21 @@ export const lineItemSchema = z
     unitCostCents: unitCost,
   }));
 
+const termsFields = {
+  items: z.array(lineItemSchema, { error: "Required" }),
+  discount: discountBps,
+};
+
+/** Commercial terms only; used by the editor to preview totals before name and notes are valid. */
+export const termsInputSchema = z
+  .object(termsFields)
+  .transform(({ discount, ...rest }) => ({ ...rest, discountBps: discount }));
+
 export const quoteInputSchema = z
   .object({
     name: requiredText(120),
     notes: z.string({ error: "Must be text" }).max(2000, { error: "At most 2000 characters" }).default(""),
-    items: z.array(lineItemSchema, { error: "Required" }),
-    discount: discountBps,
+    ...termsFields,
   })
   .transform(({ discount, ...rest }) => ({ ...rest, discountBps: discount }));
 

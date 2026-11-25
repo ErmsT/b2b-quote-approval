@@ -3,14 +3,14 @@ import { calculateTotals, type CommercialTerms, type QuoteTotals } from "./calc.
 import { termsFingerprint } from "./fingerprint.js";
 import { deriveStatus, type Decision, type DerivedStatus } from "./status.js";
 
-export interface QuoteAssessment extends DerivedStatus {
+export interface QuoteAssessment<D extends Decision = Decision> extends DerivedStatus<D> {
   totals: QuoteTotals;
   rule: RuleEvaluation;
   termsFingerprint: string;
 }
 
 /** Everything the server recomputes on every read: totals, rule, fingerprint and status. */
-export function assessQuote(terms: CommercialTerms, decisions: readonly Decision[]): QuoteAssessment {
+export function assessQuote<D extends Decision>(terms: CommercialTerms, decisions: readonly D[]): QuoteAssessment<D> {
   const totals = calculateTotals(terms);
   const rule = evaluateRule(totals);
   const fingerprint = termsFingerprint(terms);

@@ -1,0 +1,101 @@
+- generic [ref=f4e2]:
+  - banner [ref=f4e3]:
+    - heading "Quote Margin & Approval" [level=1] [ref=f4e4]
+    - paragraph [ref=f4e5]: Prototype. One shared demo database for every reviewer.
+  - generic [ref=f4e6]:
+    - generic [ref=f4e7]:
+      - navigation "Quotes" [ref=f4e8]:
+        - heading "Quotes" [level=2] [ref=f4e9]
+        - generic [ref=f4e10]:
+          - generic [ref=f4e11]: Search quotes by name
+          - searchbox "Search quotes by name" [ref=f4e12]
+        - button "New quote" [ref=f4e13] [cursor=pointer]
+        - list [ref=f4e20]:
+          - listitem [ref=f4e21]:
+            - button "Standard Net $10,000.00 · Margin 40.0% Can proceed" [ref=f4e22] [cursor=pointer]:
+              - generic [ref=f4e23]: Standard
+              - generic [ref=f4e24]: Net $10,000.00 · Margin 40.0%
+              - generic [ref=f4e25]: Can proceed
+          - listitem [ref=f4e26]:
+            - 'button "Large Net $22,500.00 · Margin 20.0% Needs review: awaiting manager decision" [ref=f4e27] [cursor=pointer]':
+              - generic [ref=f4e28]: Large
+              - generic [ref=f4e29]: Net $22,500.00 · Margin 20.0%
+              - generic [ref=f4e30]: "Needs review: awaiting manager decision"
+          - listitem [ref=f4e31]:
+            - 'button "Revision Net $9,200.00 · Margin 21.7% Needs review: earlier decision no longer applies" [ref=f4e32] [cursor=pointer]':
+              - generic [ref=f4e33]: Revision
+              - generic [ref=f4e34]: Net $9,200.00 · Margin 21.7%
+              - generic [ref=f4e35]: "Needs review: earlier decision no longer applies"
+      - region "Demo only" [ref=f4e15]:
+        - heading "Demo only" [level=2] [ref=f4e16]
+        - group "Replace all quotes and decisions with the three seeded cases? This affects everyone using this demo." [ref=f4e103]:
+          - paragraph [ref=f4e104]: Replace all quotes and decisions with the three seeded cases? This affects everyone using this demo.
+          - generic [ref=f4e105]:
+            - button "Yes, restore demo data" [ref=f4e106] [cursor=pointer]
+            - button "Cancel" [active] [ref=f4e107] [cursor=pointer]
+    - main [ref=f4e18]:
+      - generic [ref=f4e36]:
+        - 'form "Edit quote: Revision" [ref=f4e37]':
+          - 'heading "Edit quote: Revision" [level=2] [ref=f4e38]'
+          - generic [ref=f4e39]:
+            - generic [ref=f4e40]: Quote name
+            - textbox "Quote name" [ref=f4e41]: Revision
+          - generic [ref=f4e42]:
+            - generic [ref=f4e43]: Notes (not part of the commercial terms)
+            - textbox "Notes (not part of the commercial terms)" [ref=f4e44]
+          - heading "Line items" [level=3] [ref=f4e45]
+          - group "Item 1" [ref=f4e46]:
+            - generic [ref=f4e48]:
+              - generic [ref=f4e49]: Description
+              - textbox "Description" [ref=f4e50]: Implementation
+            - generic [ref=f4e51]:
+              - generic [ref=f4e52]: Quantity
+              - textbox "Quantity" [ref=f4e53]: "1"
+            - generic [ref=f4e54]:
+              - generic [ref=f4e55]: Unit price (USD)
+              - textbox "Unit price (USD)" [ref=f4e56]: "11500.00"
+            - generic [ref=f4e57]:
+              - generic [ref=f4e58]: Unit cost (USD)
+              - textbox "Unit cost (USD)" [ref=f4e59]: "7200.00"
+            - button "Remove item 1" [ref=f4e60] [cursor=pointer]
+          - button "Add line item" [ref=f4e61] [cursor=pointer]
+          - generic [ref=f4e62]:
+            - generic [ref=f4e63]: Discount on total price (%)
+            - textbox "Discount on total price (%)" [ref=f4e64]: "20"
+          - button "Save changes" [ref=f4e66] [cursor=pointer]
+          - status
+        - generic [ref=f4e67]:
+          - region "Totals" [ref=f4e68]:
+            - heading "Totals" [level=2] [ref=f4e69]
+            - generic [ref=f4e70]:
+              - term [ref=f4e71]: Gross revenue
+              - definition [ref=f4e72]: $11,500.00
+              - term [ref=f4e73]: Discount
+              - definition [ref=f4e74]: 20%
+              - term [ref=f4e75]: Net revenue
+              - definition [ref=f4e76]: $9,200.00
+              - term [ref=f4e77]: Total cost
+              - definition [ref=f4e78]: $7,200.00
+              - term [ref=f4e79]: Margin
+              - definition [ref=f4e80]: 21.7%
+            - paragraph [ref=f4e81]:
+              - strong [ref=f4e82]: "Status:"
+              - text: "Needs review: earlier decision no longer applies"
+            - paragraph [ref=f4e83]: Margin 21.7% is below the 30% minimum; discount 20% exceeds the 15% maximum
+            - paragraph [ref=f4e84]: Approval from Nov 25, 2026 applied to earlier terms (margin 25.0%, discount 20%)
+          - 'region "Simulation: manager decision (no login, no email)" [ref=f4e85]':
+            - 'heading "Simulation: manager decision (no login, no email)" [level=2] [ref=f4e86]'
+            - generic [ref=f4e87]:
+              - generic [ref=f4e88]:
+                - generic [ref=f4e89]: Reason for the decision (required)
+                - textbox "Reason for the decision (required)" [ref=f4e90]
+              - generic [ref=f4e91]:
+                - button "Approve these terms" [ref=f4e92] [cursor=pointer]
+                - button "Reject these terms" [ref=f4e93] [cursor=pointer]
+            - status
+            - heading "Decision history" [level=3] [ref=f4e94]
+            - list [ref=f4e95]:
+              - listitem [ref=f4e96]:
+                - strong [ref=f4e97]: Approved
+                - text: "on Nov 25, 2026, 3:18 PM (earlier terms)Reason: Strategic accountReviewed: net $9,600.00, margin 25.0%, discount 20%"
+  - status

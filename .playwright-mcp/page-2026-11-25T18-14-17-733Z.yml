@@ -1,0 +1,19 @@
+- generic [ref=f3e2]:
+  - banner [ref=f3e3]:
+    - heading "Quote Margin & Approval" [level=1] [ref=f3e4]
+    - paragraph [ref=f3e5]: Prototype. One shared demo database for every reviewer.
+  - generic [ref=f3e6]:
+    - generic [ref=f3e7]:
+      - navigation "Quotes" [ref=f3e8]:
+        - heading "Quotes" [level=2] [ref=f3e9]
+        - generic [ref=f3e10]:
+          - generic [ref=f3e11]: Search quotes by name
+          - searchbox "Search quotes by name" [ref=f3e12]
+        - button "New quote" [ref=f3e13] [cursor=pointer]
+        - status [ref=f3e14]: Loading quotes…
+      - region "Demo only" [ref=f3e15]:
+        - heading "Demo only" [level=2] [ref=f3e16]
+        - button "Restore demo data" [ref=f3e17] [cursor=pointer]
+    - main [ref=f3e18]:
+      - paragraph [ref=f3e19]: Select a quote or create a new one.
+  - status
