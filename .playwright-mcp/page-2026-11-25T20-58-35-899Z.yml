@@ -1,0 +1,88 @@
+- generic [ref=f1e2]:
+  - banner [ref=f1e3]:
+    - heading "Quote Margin & Approval" [level=1] [ref=f1e4]
+    - paragraph [ref=f1e5]: Prototype. One shared demo database for every reviewer.
+  - generic [ref=f1e6]:
+    - generic [ref=f1e7]:
+      - navigation "Quotes" [ref=f1e8]:
+        - heading "Quotes" [level=2] [ref=f1e9]
+        - generic [ref=f1e10]:
+          - generic [ref=f1e11]: Search quotes by name
+          - searchbox "Search quotes by name" [ref=f1e12]
+        - button "New quote" [ref=f1e13] [cursor=pointer]
+        - list [ref=f1e20]:
+          - listitem [ref=f1e21]:
+            - button "Standard Net $10,000.00 · Margin 40.0% Can proceed" [ref=f1e22] [cursor=pointer]:
+              - generic [ref=f1e23]: Standard
+              - generic [ref=f1e24]: Net $10,000.00 · Margin 40.0%
+              - generic [ref=f1e25]: Can proceed
+          - listitem [ref=f1e26]:
+            - 'button "Large Net $22,500.00 · Margin 20.0% Needs review: awaiting manager decision" [ref=f1e27] [cursor=pointer]':
+              - generic [ref=f1e28]: Large
+              - generic [ref=f1e29]: Net $22,500.00 · Margin 20.0%
+              - generic [ref=f1e30]: "Needs review: awaiting manager decision"
+          - listitem [ref=f1e31]:
+            - 'button "Revision Net $9,600.00 · Margin 25.0% Needs review: awaiting manager decision" [ref=f1e32] [cursor=pointer]':
+              - generic [ref=f1e33]: Revision
+              - generic [ref=f1e34]: Net $9,600.00 · Margin 25.0%
+              - generic [ref=f1e35]: "Needs review: awaiting manager decision"
+          - listitem [ref=f1e36]:
+            - button "Pilot rollout Net $9,500.00 · Margin 38.9% Can proceed" [ref=f1e37] [cursor=pointer]:
+              - generic [ref=f1e38]: Pilot rollout
+              - generic [ref=f1e39]: Net $9,500.00 · Margin 38.9%
+              - generic [ref=f1e40]: Can proceed
+          - listitem [ref=f1e93]:
+            - 'button "Empty draft Net $0.00 · Margin — Needs review: awaiting manager decision" [ref=f1e94] [cursor=pointer]':
+              - generic [ref=f1e95]: Empty draft
+              - generic [ref=f1e96]: Net $0.00 · Margin —
+              - generic [ref=f1e97]: "Needs review: awaiting manager decision"
+      - region "Demo only" [ref=f1e15]:
+        - heading "Demo only" [level=2] [ref=f1e16]
+        - button "Restore demo data" [ref=f1e17] [cursor=pointer]
+    - main [ref=f1e18]:
+      - generic [ref=f1e98]:
+        - 'form "Edit quote: Empty draft" [ref=f1e99]':
+          - 'heading "Edit quote: Empty draft" [level=2] [ref=f1e100]'
+          - generic [ref=f1e101]:
+            - generic [ref=f1e102]: Quote name
+            - textbox "Quote name" [ref=f1e103]: Empty draft
+          - generic [ref=f1e104]:
+            - generic [ref=f1e105]: Notes (not part of the commercial terms)
+            - textbox "Notes (not part of the commercial terms)" [ref=f1e106]
+          - heading "Line items" [level=3] [ref=f1e107]
+          - paragraph [ref=f1e108]: No line items. Add one to give the quote revenue.
+          - button "Add line item" [ref=f1e109] [cursor=pointer]
+          - generic [ref=f1e110]:
+            - generic [ref=f1e111]: Discount on total price (%)
+            - textbox "Discount on total price (%)" [ref=f1e112]: "0"
+          - button "Save changes" [ref=f1e114] [cursor=pointer]
+          - status
+        - generic [ref=f1e115]:
+          - region "Totals" [ref=f1e116]:
+            - heading "Totals" [level=2] [ref=f1e117]
+            - generic [ref=f1e118]:
+              - term [ref=f1e119]: Gross revenue
+              - definition [ref=f1e120]: $0.00
+              - term [ref=f1e121]: Discount
+              - definition [ref=f1e122]: 0%
+              - term [ref=f1e123]: Net revenue
+              - definition [ref=f1e124]: $0.00
+              - term [ref=f1e125]: Total cost
+              - definition [ref=f1e126]: $0.00
+              - term [ref=f1e127]: Margin
+              - definition [ref=f1e128]: —
+            - paragraph [ref=f1e129]:
+              - strong [ref=f1e130]: "Status:"
+              - text: "Needs review: awaiting manager decision"
+            - paragraph [ref=f1e131]: "No revenue: margin cannot be calculated; discount 0% is within the 15% maximum"
+          - 'region "Simulation: manager decision (no login, no email)" [ref=f1e132]':
+            - 'heading "Simulation: manager decision (no login, no email)" [level=2] [ref=f1e133]'
+            - generic [ref=f1e134]:
+              - generic [ref=f1e135]:
+                - generic [ref=f1e136]: Reason for the decision (required)
+                - textbox "Reason for the decision (required)" [ref=f1e137]
+              - generic [ref=f1e138]:
+                - button "Approve these terms" [ref=f1e139] [cursor=pointer]
+                - button "Reject these terms" [ref=f1e140] [cursor=pointer]
+            - status
+  - status [ref=f1e141]: Quote created.

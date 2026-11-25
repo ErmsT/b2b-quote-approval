@@ -1,0 +1,14 @@
+node_modules
+dist
+data
+*.db
+*.db-wal
+*.db-shm
+.git
+.env
+.mcp.json
+.playwright-mcp
+.vscode
+Dockerfile
+.dockerignore
+fly.toml

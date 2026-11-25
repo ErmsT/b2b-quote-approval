@@ -1,0 +1,104 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - heading "Quote Margin & Approval" [level=1] [ref=e4]
+    - paragraph [ref=e5]: Prototype. One shared demo database for every reviewer.
+  - generic [ref=e6]:
+    - generic [ref=e7]:
+      - navigation "Quotes" [ref=e8]:
+        - heading "Quotes" [level=2] [ref=e9]
+        - generic [ref=e10]:
+          - generic [ref=e11]: Search quotes by name
+          - searchbox "Search quotes by name" [ref=e12]
+        - button "New quote" [ref=e13] [cursor=pointer]
+        - list [ref=e20]:
+          - listitem [ref=e21]:
+            - button "Standard Net $10,000.00 · Margin 40.0% Can proceed" [ref=e22] [cursor=pointer]:
+              - generic [ref=e23]: Standard
+              - generic [ref=e24]: Net $10,000.00 · Margin 40.0%
+              - generic [ref=e25]: Can proceed
+          - listitem [ref=e26]:
+            - 'button "Large Net $22,500.00 · Margin 20.0% Needs review: awaiting manager decision" [ref=e27] [cursor=pointer]':
+              - generic [ref=e28]: Large
+              - generic [ref=e29]: Net $22,500.00 · Margin 20.0%
+              - generic [ref=e30]: "Needs review: awaiting manager decision"
+          - listitem [ref=e31]:
+            - 'button "Revision Net $9,600.00 · Margin 25.0% Needs review: awaiting manager decision" [ref=e32] [cursor=pointer]':
+              - generic [ref=e33]: Revision
+              - generic [ref=e34]: Net $9,600.00 · Margin 25.0%
+              - generic [ref=e35]: "Needs review: awaiting manager decision"
+          - listitem [ref=e96]:
+            - button "Pilot rollout Net $9,500.00 · Margin 38.9% Can proceed" [ref=e97] [cursor=pointer]:
+              - generic [ref=e98]: Pilot rollout
+              - generic [ref=e99]: Net $9,500.00 · Margin 38.9%
+              - generic [ref=e100]: Can proceed
+      - region "Demo only" [ref=e15]:
+        - heading "Demo only" [level=2] [ref=e16]
+        - button "Restore demo data" [ref=e17] [cursor=pointer]
+    - main [ref=e18]:
+      - generic [ref=e101]:
+        - 'form "Edit quote: Pilot rollout" [ref=e102]':
+          - 'heading "Edit quote: Pilot rollout" [level=2] [ref=e103]'
+          - generic [ref=e104]:
+            - generic [ref=e105]: Quote name
+            - textbox "Quote name" [ref=e106]: Pilot rollout
+          - generic [ref=e107]:
+            - generic [ref=e108]: Notes (not part of the commercial terms)
+            - textbox "Notes (not part of the commercial terms)" [ref=e109]
+          - heading "Line items" [level=3] [ref=e110]
+          - group "Item 1" [ref=e111]:
+            - generic [ref=e113]:
+              - generic [ref=e114]: Description
+              - textbox "Description" [ref=e115]: Workshop
+            - generic [ref=e116]:
+              - generic [ref=e117]: Quantity
+              - textbox "Quantity" [ref=e118]: "2"
+            - generic [ref=e119]:
+              - generic [ref=e120]: Unit price (USD)
+              - textbox "Unit price (USD)" [ref=e121]: "1500.00"
+            - generic [ref=e122]:
+              - generic [ref=e123]: Unit cost (USD)
+              - textbox "Unit cost (USD)" [ref=e124]: "900.00"
+            - button "Remove item 1" [ref=e125] [cursor=pointer]
+          - group "Item 2" [ref=e126]:
+            - generic [ref=e128]:
+              - generic [ref=e129]: Description
+              - textbox "Description" [ref=e130]: Implementation
+            - generic [ref=e131]:
+              - generic [ref=e132]: Quantity
+              - textbox "Quantity" [ref=e133]: "1"
+            - generic [ref=e134]:
+              - generic [ref=e135]: Unit price (USD)
+              - textbox "Unit price (USD)" [ref=e136]: "7000.00"
+            - generic [ref=e137]:
+              - generic [ref=e138]: Unit cost (USD)
+              - textbox "Unit cost (USD)" [ref=e139]: "4000.00"
+            - button "Remove item 2" [ref=e140] [cursor=pointer]
+          - button "Add line item" [ref=e141] [cursor=pointer]
+          - generic [ref=e142]:
+            - generic [ref=e143]: Discount on total price (%)
+            - textbox "Discount on total price (%)" [ref=e144]: "5"
+          - button "Save changes" [ref=e146] [cursor=pointer]
+          - status
+        - generic [ref=e147]:
+          - region "Totals" [ref=e148]:
+            - heading "Totals" [level=2] [ref=e149]
+            - generic [ref=e150]:
+              - term [ref=e151]: Gross revenue
+              - definition [ref=e152]: $10,000.00
+              - term [ref=e153]: Discount
+              - definition [ref=e154]: 5%
+              - term [ref=e155]: Net revenue
+              - definition [ref=e156]: $9,500.00
+              - term [ref=e157]: Total cost
+              - definition [ref=e158]: $5,800.00
+              - term [ref=e159]: Margin
+              - definition [ref=e160]: 38.9%
+            - paragraph [ref=e161]:
+              - strong [ref=e162]: "Status:"
+              - text: Can proceed
+            - paragraph [ref=e163]: Margin 38.9% meets the 30% minimum; discount 5% is within the 15% maximum
+          - 'region "Simulation: manager decision (no login, no email)" [ref=e164]':
+            - 'heading "Simulation: manager decision (no login, no email)" [level=2] [ref=e165]'
+            - paragraph [ref=e166]: "No manager decision needed: the saved terms satisfy the approval rule."
+            - status
+  - status [ref=e167]: Quote created.

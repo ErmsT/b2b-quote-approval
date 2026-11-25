@@ -2,7 +2,7 @@
 
 A small working prototype: an account manager builds a fixed-price quote. The app shows net revenue, margin and whether the deal can proceed or needs a manager decision. A simulated manager approves or rejects exceptions. An approval never carries over to terms the manager did not see.
 
-- **Deployed app:** TODO (URL)
+- **Deployed app:** https://b2b-quote-approval.fly.dev/
 - **Public repository:** https://github.com/ErmsT/b2b-quote-approval
 
 > The deployed demo uses **one shared database for every reviewer**. Others may edit the same quotes while you look at them. Use **Restore demo data** (bottom of the quote list) to return to the three seeded cases.
@@ -79,7 +79,31 @@ npm run db:reset   # drop data and re-seed (local only)
 
 The SQLite file path comes from `DATABASE_PATH` (default `./data/app.db`). Migrations run on startup. The seed runs only when the quotes table is empty.
 
-**Deployment (not done yet):** one Node service on a host with a persistent disk, e.g. Fly.io with a volume or Railway. Run `npm run build`, then `npm start`, with `DATABASE_PATH` pointing to the mounted volume. Serverless hosts without a persistent disk are not suitable for SQLite.
+## Deployment (Fly.io)
+
+The app is deployed as one Fly Machine with a Fly volume holding the SQLite file. Serverless hosts without a persistent disk are not suitable for SQLite.
+
+The deployment files:
+
+- `Dockerfile`: a multi-stage build on `node:22-bookworm-slim`. The first stage installs dependencies and builds the client and server. The runtime image contains only `dist/` and production dependencies.
+- `fly.toml`:
+  - mounts the volume `quote_data` at `/data` and sets `DATABASE_PATH=/data/app.db`;
+  - checks health with `GET /api/quotes`;
+  - stops the machine when idle and restarts it on the next request. The data stays on the volume, but the first request after idle has a cold start of a few seconds.
+- On startup the server runs any pending migrations, then seeds the three demo quotes only if the database is empty.
+
+**It must run as exactly one machine.** Each Fly volume belongs to one machine. A second machine would get its own empty database, and reviewers would see different data depending on which machine served them.
+
+First deployment (requires [flyctl](https://fly.io/docs/flyctl/install/) and a Fly.io account):
+
+```bash
+# 1. Edit `app` (globally unique) and `primary_region` in fly.toml.
+fly apps create <app-name>
+fly volumes create quote_data --size 1 --region <primary_region>
+fly deploy --ha=false
+```
+
+Later deployments: `fly deploy --ha=false`. Restoring the demo data on the deployed app uses the **Restore demo data** button. There is no shell step.
 
 ## Key engineering choices
 
@@ -91,7 +115,7 @@ The SQLite file path comes from `DATABASE_PATH` (default `./data/app.db`). Migra
 
 ## What was tested
 
-Automated tests (`npm test`, 121 tests, all passing at the time of writing):
+Automated tests (`npm test`, 122 tests, all passing at the time of writing):
 
 - **Domain** (`src/domain/*.test.ts`):
   - the three seeded cases, including Revision at 20% and at 10%;
@@ -115,11 +139,18 @@ Automated tests (`npm test`, 121 tests, all passing at the time of writing):
   - field errors linked with `aria-describedby`, and focus moving to the first invalid field;
   - an empty discount rejected rather than treated as 0;
   - Revision 20% → 10%: preview, save, then "Can proceed";
+  - adding a line item to Standard (Support, $5,000 price and cost): the preview and saved totals show $15,000 revenue, $11,000 cost and 26.7% margin, the status becomes Needs review, and the new item is still there when the app is rendered again;
   - the 409 conflict reload;
   - a manager decision with a required reason, and the `role="status"` announcement;
   - the decision confirmation cleared once the saved commercial terms change;
   - stale after a price change;
   - demo reset: confirmation, Escape to cancel, focus on Cancel.
+- **Deployed app check by the agent** (Fly.io, region `iad`; image built on Fly's remote builder):
+  - one machine is running, with the volume mounted at `/data`, and the server logs `database: /data/app.db`;
+  - the health check passes. It failed once during the two seconds before the server started listening;
+  - the live API returns the three seeded cases with the expected margins and statuses;
+  - a decision recorded through the live API was still there after `fly machine restart`. The demo data was then restored through `POST /api/demo/reset`;
+  - in the browser at 1400px, the live site renders like the local build, with no console errors or warnings.
 - **Manual smoke test by the agent:**
   - the built server seeded the cases and an approval survived a server restart;
   - `npm run db:reset` restored the seeded data;
@@ -143,6 +174,13 @@ Automated tests (`npm test`, 121 tests, all passing at the time of writing):
     - opened with the keyboard, it focuses Cancel with a visible outline;
     - Escape closes it and returns focus to "Restore demo data";
     - confirming restores the seeded data.
+  - **New quote** (local build, 1400px):
+    - submitting the empty form shows "Required" next to name, description, unit price and unit cost, moves focus to the name field, and saves nothing;
+    - a two-item quote with a 5% discount previews $9,500.00 net and 38.9% margin (correct by hand);
+    - "Create quote" opens it in the editor with the server's figures, announces "Quote created.", and adds it to the list as the selected quote;
+    - it is still there after a page reload;
+    - a quote with no line items is created with margin "—", "No revenue: margin cannot be calculated", status Needs review, and the manager panel offered.
+    - This flow has no automated UI test.
   - **Stale state:** the warning callout ("Approval from … applied to earlier terms …") and the "earlier decision no longer applies" badge render as intended.
   - **Console:** no errors or warnings. The inline SVG favicon removed the earlier `/favicon.ico` 404.
   - **Colour contrast**, computed from the CSS values against WCAG 2.1:
@@ -160,7 +198,11 @@ Automated tests (`npm test`, 121 tests, all passing at the time of writing):
 - **Screen-reader output:** no screen reader was used. Live-region announcements are covered only by `role="status"` assertions in the UI tests.
 - Firefox and Safari: only Chromium-based browsers (Edge, Playwright's Chromium) were used. The layout relies on CSS container queries, which current versions of all three support, but this was not checked.
 - Viewports other than 1280, 1400, 1440, 820 and 390px wide, and browser zoom levels above 100%.
-- The deployed environment: there is no deployment yet, so the persistent volume, shared-database behaviour across real reviewers, and restarts on the host are untested.
+- **The deployed environment, beyond the checks above:**
+  - the cold start after auto-stop: the machine was restarted on purpose but not observed waking up from idle;
+  - several reviewers editing at the same time;
+  - redeploying with existing data.
+- The Docker image has only been built on Fly's remote builder, never locally.
 - `npm run dev` (watch mode with the Vite proxy) was not exercised by automated tests.
 - Very large values: quantity × price above about $90 billion per line would exceed exact integer arithmetic in JavaScript. No upper bound is enforced.
 
@@ -175,7 +217,8 @@ Automated tests (`npm test`, 121 tests, all passing at the time of writing):
 
 - Record an append-only log of term changes with timestamps, so the turnaround metric can be computed from data rather than only from `createdAt` and `decidedAt`.
 - Warn before leaving a quote with unsaved changes.
-- Deploy to a host with a persistent volume and run the manual checklist against it.
+- Run the full manual checklist below against the deployed app (https://b2b-quote-approval.fly.dev/). Deployment, persistence across a machine restart, and demo reset have been checked there; the rest of the checklist has not.
+- Add an automated UI test for creating a whole new quote ("New quote"). It has been checked by hand in the browser only. Adding line items to an existing quote is covered by a UI test.
 
 ## Reviewer walkthrough (seeded cases)
 
@@ -208,7 +251,7 @@ This prototype was built with an AI coding agent (Claude Code), working from `AG
 - the domain layer and its unit tests;
 - the SQLite schema, migrations, seed and Express API, with integration tests;
 - the React client and its UI tests;
-- this README.
+- the initial draft of this README.
 
 The author reviewed each phase and approved the documented assumptions before the next phase started.
 

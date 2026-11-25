@@ -120,6 +120,41 @@ describe("quote editor", () => {
     );
   });
 
+  it("adding a line item to a seeded quote updates totals and status, and persists", async () => {
+    const { unmount } = render(<App />);
+    const user = await openQuote("Standard");
+    expect(within(totals()).getByText("Can proceed")).toBeTruthy();
+
+    await user.click(screen.getByRole("button", { name: "Add line item" }));
+    const item3 = screen.getByRole("group", { name: "Item 3" });
+    await user.type(within(item3).getByLabelText("Description"), "Support");
+    await user.clear(within(item3).getByLabelText("Quantity"));
+    await user.type(within(item3).getByLabelText("Quantity"), "1");
+    await user.type(within(item3).getByLabelText("Unit price (USD)"), "5000");
+    await user.type(within(item3).getByLabelText("Unit cost (USD)"), "5000");
+
+    // Gross $15,000, cost $11,000 → margin 4,000 / 15,000 = 26.7%, below the 30% minimum.
+    expect(within(totals()).getByText("Preview of unsaved changes")).toBeTruthy();
+    expect(within(totals()).getByText("26.7%")).toBeTruthy();
+
+    await user.click(screen.getByRole("button", { name: "Save changes" }));
+    await screen.findByText("Quote saved.");
+    expect(within(totals()).getAllByText("$15,000.00")).toHaveLength(2); // gross and net (0% discount)
+    expect(within(totals()).getByText("$11,000.00")).toBeTruthy();
+    expect(within(totals()).getByText("Needs review: awaiting manager decision")).toBeTruthy();
+    expect(
+      within(totals()).getByText("Margin 26.7% is below the 30% minimum; discount 0% is within the 15% maximum"),
+    ).toBeTruthy();
+    expect(getQuote(db, 1)?.items).toHaveLength(3);
+
+    // Reload: a fresh app instance reads the saved quote back from the server.
+    unmount();
+    render(<App />);
+    await openQuote("Standard");
+    expect(within(screen.getByRole("group", { name: "Item 3" })).getByDisplayValue("Support")).toBeTruthy();
+    expect(within(totals()).getByText("Needs review: awaiting manager decision")).toBeTruthy();
+  });
+
   it("reloads the quote when someone else saved it first (409)", async () => {
     render(<App />);
     const user = await openQuote("Revision");
